@@ -10,6 +10,7 @@ import javax.transaction.Status;
 
 @Entity
 @Table(name = "CUSTOMER_ORDER")
+public
 class Order {
 
   private @Id @GeneratedValue Long id;
