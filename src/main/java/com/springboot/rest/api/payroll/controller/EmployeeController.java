@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.hateoas.CollectionModel;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,10 +50,29 @@ class EmployeeController {
       this.assembler = assembler;
     }
   
+    /* The new Employee object is saved as before. 
+     * But the resulting object is wrapped using the EmployeeModelAssembler.
+     * Spring MVC’s ResponseEntity is used to create an HTTP 201 Created status message.
+     * This type of response typically includes a Location response header, and we use 
+     * the URI derived from the model’s self-related link.
+     * 
+     * Additionally, return the model-based version of the saved object.*/ 
+    @PostMapping("/employees")
+    ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
+
+      EntityModel<Employee> entityModel = assembler.toModel(repository.save(newEmployee));
+
+      return ResponseEntity //
+          .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+          .body(entityModel);
+    }
+    
+    
+ /* Old PostMapping New Employee method
   @PostMapping("/employees")
   Employee newEmployee(@RequestBody Employee newEmployee) {
     return repository.save(newEmployee);
-  }
+  } */
   
   // Single item
   //Getting single item resource using the assembler
