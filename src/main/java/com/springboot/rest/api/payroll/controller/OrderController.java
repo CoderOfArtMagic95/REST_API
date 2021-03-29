@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.springboot.rest.api.payroll.model.Order;
 import com.springboot.rest.api.payroll.model.OrderModelAssembler;
 import com.springboot.rest.api.payroll.model.Status;
@@ -17,6 +18,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.mediatype.problem.Problem;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -76,6 +79,7 @@ public
    * hypermedia-supporting error container. If the transition is indeed
    * valid, it transitions the Order to CANCELLED.*/
   @DeleteMapping("/orders/{id}/cancel")
+public
   ResponseEntity<?> cancel(@PathVariable Long id) {
 
     Order order = orderRepository.findById(id) //
@@ -96,6 +100,7 @@ public
   
   //completes the order
   @PutMapping("/orders/{id}/complete")
+public
   ResponseEntity<?> complete(@PathVariable Long id) {
 
     Order order = orderRepository.findById(id) //
