@@ -2,9 +2,9 @@ package com.springboot.rest.api.payroll.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.springboot.rest.api.payroll.model.Employee;
 import com.springboot.rest.api.payroll.repository.EmployeeRepository;
 import com.springboot.rest.api.payroll.model.EmployeeModelAssembler;
+import com.springboot.rest.api.payroll.model.Employee;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,12 +45,16 @@ class EmployeeController {
   private final EmployeeRepository repository;
   
   private final EmployeeModelAssembler assembler;
+  
+  private Employee newEmployee;
 
   //Injecting EmployeeModelAssembler into the controller class' constructor
-    EmployeeController(EmployeeRepository repository, EmployeeModelAssembler assembler) {
+    EmployeeController(EmployeeRepository repository, EmployeeModelAssembler assembler, Employee newEmployee) {
 
       this.repository = repository;
       this.assembler = assembler;
+      this.newEmployee.setNewEmployee(newEmployee);
+      this.newEmployee.getNewEmployee();
     }
   
     /* The new Employee object is saved as before. 
@@ -63,6 +67,7 @@ class EmployeeController {
     @PostMapping("/employees")
     ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
+     // this.newEmployee = newEmployee;
       EntityModel<Employee> entityModel = assembler.toModel(repository.save(newEmployee));
 
       return ResponseEntity //

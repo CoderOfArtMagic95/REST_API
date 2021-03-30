@@ -23,6 +23,7 @@ import javax.persistence.Id;
   class Employee {
 
     private @Id @GeneratedValue Long id;
+    private Employee newEmployee;
     private String firstName;
     private String lastName;
     private String role;
@@ -68,7 +69,7 @@ import javax.persistence.Id;
     public String getRole() {
       return this.role;
     }
-
+   
     public void setId(Long id) {
       this.id = id;
     }
@@ -81,13 +82,22 @@ import javax.persistence.Id;
       this.lastName = lastName;
     }
 
-    public void setFullName() {
-    	this.fullName = firstName + " " + lastName;
-      }
-    
     public void setRole(String role) {
       this.role = role;
     }
+
+    public Employee getNewEmployee() {
+    	return newEmployee;
+    }
+
+    public void setNewEmployee(Employee newEmployee) {
+    	this.newEmployee = newEmployee;
+    }
+
+	public void setFullName(String fullName) {
+		fullName = firstName + " " + lastName;
+		this.fullName = fullName;
+	}
 
     @Override
     public boolean equals(Object o) {
@@ -101,14 +111,14 @@ import javax.persistence.Id;
           && Objects.equals(this.lastName, employee.lastName) && Objects.equals(this.role, employee.role);
     }
 
-    @Override
+	@Override
     public int hashCode() {
-      return Objects.hash(this.id, this.firstName, this.lastName, this.role);
+      return Objects.hash(this.id, this.firstName, this.lastName, this.role, this.newEmployee);
     }
 
     @Override
-    public String toString() {
-      return "Employee{" + "id=" + this.id + ", firstName='" + this.firstName + '\'' + ", lastName='" + this.lastName
-          + '\'' + ", role='" + this.role + '\'' + '}';
-    }
+	public String toString() {
+		return "Employee [id=" + id + ", newEmployee=" + newEmployee + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", role=" + role + ", fullName=" + fullName + "]";
+	}
 }
